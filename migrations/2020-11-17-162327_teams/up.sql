@@ -1,0 +1,6 @@
+CREATE TABLE teams (
+    id INT(11) NOT NULL AUTO_INCREMENT,
+    `name` VARCHAR(250) NOT NULL,
+    record VARCHAR(11) NOT NULL,
+    PRIMARY KEY (id)
+);

@@ -1,9 +1,14 @@
 #![feature(proc_macro_hygiene, decl_macro)]
 
 mod register;
+mod schema;
+
+#[macro_use]
+extern crate diesel;
 
 use rocket_contrib::templates::Template;
 use std::collections::HashMap;
+use dotenv::dotenv;
 
 #[macro_use] extern crate rocket;
 
@@ -14,9 +19,9 @@ fn index() -> Template {
     Template::render("index", &context)
 }
 
-
-
 fn main() {
+    dotenv().ok();
+
     rocket::ignite()
         .mount("/", routes![index,crate::register::register])
         .attach(Template::fairing())
