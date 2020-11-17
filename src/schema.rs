@@ -1,6 +1,7 @@
 table! {
     games (id) {
         id -> Integer,
+        tournament_id -> Integer,
         team_1_id -> Integer,
         team_2_id -> Integer,
         inning -> Nullable<Integer>,

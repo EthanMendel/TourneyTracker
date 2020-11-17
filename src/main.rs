@@ -2,6 +2,7 @@
 
 mod register;
 mod schema;
+mod db;
 
 #[macro_use]
 extern crate diesel;
