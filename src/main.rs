@@ -34,7 +34,7 @@ fn main() {
 
     rocket::ignite()
         .attach(TournamentDbConn::fairing())
-        .mount("/", routes![index,crate::register::register])
+        .mount("/", routes![index, crate::register::register, crate::register::register_post])
         .attach(Template::fairing())
         .launch();
 }
