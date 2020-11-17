@@ -27,9 +27,16 @@ pub struct Game {
     pub balls: i32,
 }
 
-#[derive(Identifiable, Queryable, PartialEq, Debug)]
+#[derive(Identifiable, Queryable, PartialEq, Debug, Serialize)]
 pub struct Team {
     pub id: i32,
+    pub name: String,
+    pub record: String,
+}
+
+#[derive(Insertable, Debug, PartialEq, Clone, Serialize, FromForm)]
+#[table_name = "teams"]
+pub struct InsertableTeam {
     pub name: String,
     pub record: String,
 }

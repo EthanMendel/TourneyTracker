@@ -2,24 +2,42 @@ use rocket_contrib::templates::Template;
 use std::collections::HashMap;
 use rocket::request::Form;
 use serde::Serialize;
-use crate::db::InsertableTournament;
+use crate::db::{ InsertableTournament, InsertableTeam };
 use crate::schema::tournaments::dsl::*;
+use crate::schema::teams::dsl::*;
 use diesel::prelude::*;
 
 
-#[get("/register")]
-pub fn register() -> Template {
+#[get("/registerTournament")]
+pub fn register_tournament() -> Template {
     let context: HashMap<&str, &str> = HashMap::new();
-    Template::render("register", context)
+    Template::render("registerTournament", context)
 }
 
-#[post("/register", data="<data>")]
-pub fn register_post(data: Form<InsertableTournament>, conn: crate::TournamentDbConn) -> Result<Template, Template> {
+#[post("/registerTournament", data="<data>")]
+pub fn register_tournament_post(data: Form<InsertableTournament>, conn: crate::TournamentDbConn) -> Result<Template, Template> {
     //send data to make new database entry
     println!("{:?}", &data.0);
     if diesel::insert_into(tournaments).values(&data.0).execute(&conn.0).is_ok() {//success
-        Ok(Template::render("RegisterSuccess", &data.0))
+        Ok(Template::render("RegisterTournamentSuccess", &data.0))
     } else {
-        Err(Template::render("RegisterFailure", &data.0))
+        Err(Template::render("RegisterTournamentFailure", &data.0))
+    }
+}
+
+#[get("/registerTeam")]
+pub fn register_team() -> Template {
+    let context: HashMap<&str, &str> = HashMap::new();
+    Template::render("registerTeam", context)
+}
+
+#[post("/registerTeam", data="<data>")]
+pub fn register_team_post(data: Form<InsertableTeam>, conn: crate::TournamentDbConn) -> Result<Template, Template> {
+    //send data to make new database entry
+    println!("{:?}", &data.0);
+    if diesel::insert_into(teams).values(&data.0).execute(&conn.0).is_ok() {//success
+        Ok(Template::render("RegisterTeamSuccess", &data.0))
+    } else {
+        Err(Template::render("RegisterTeamFailure", &data.0))
     }
 }
