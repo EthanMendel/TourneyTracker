@@ -1,0 +1,2 @@
+[global.databases]
+tournaments = { url = "mysql://tourney:tourney@127.0.0.1/tourney" }

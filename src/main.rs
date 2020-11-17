@@ -10,20 +10,30 @@ extern crate diesel;
 use rocket_contrib::templates::Template;
 use std::collections::HashMap;
 use dotenv::dotenv;
+use diesel::prelude::*;
+use crate::schema::tournaments::dsl::*;
+use crate::db::Tournament;
 
 #[macro_use] extern crate rocket;
+#[macro_use] extern crate rocket_contrib;
+
+
+#[database("tournaments")]
+pub struct TournamentDbConn(diesel::MysqlConnection);
 
 #[get("/")]
-fn index() -> Template {
-    let mut context = HashMap::new();
-    context.insert("x","test value");
-    Template::render("index", &context)
+fn index(conn: TournamentDbConn) -> Template {
+    let mut hash = HashMap::new();
+    let db = tournaments.load::<Tournament>(&conn.0).unwrap();
+    hash.insert("tournaments",db);
+    Template::render("index", &hash)
 }
 
 fn main() {
     dotenv().ok();
 
     rocket::ignite()
+        .attach(TournamentDbConn::fairing())
         .mount("/", routes![index,crate::register::register])
         .attach(Template::fairing())
         .launch();
