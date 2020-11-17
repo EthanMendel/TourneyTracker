@@ -20,11 +20,21 @@ pub struct Game {
     pub tournament_id: i32,
     pub team_1_id: i32,
     pub team_2_id: i32,
+    pub team_batting: i32,
     pub inning: i32,
     pub score: String,
     pub batter: i32,
     pub strikes: i32,
     pub balls: i32,
+    pub catcher: i32,
+    pub pitcher: i32,
+    pub base_1: i32,
+    pub base_2: i32,
+    pub short_stop: i32,
+    pub base_3: i32,
+    pub right_field: i32,
+    pub center_field: i32,
+    pub left_field: i32
 }
 
 #[derive(Identifiable, Queryable, PartialEq, Debug, Serialize)]
