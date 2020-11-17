@@ -1,7 +1,7 @@
 use crate::schema::*;
 use serde::Serialize;
 
-#[derive(Identifiable, Queryable, Debug, PartialEq, Clone, Serialize)]
+#[derive(Identifiable, Queryable, Debug, PartialEq, Clone, Serialize, Insertable, FromForm)]
 pub struct Tournament {
     pub id: i32,
     pub name: String,
