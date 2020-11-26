@@ -1,7 +1,7 @@
 #![feature(proc_macro_hygiene, decl_macro)]
 
 mod register;
-// mod display;
+mod display;
 mod schema;
 mod db;
 
@@ -40,8 +40,10 @@ fn main() {
         .attach(TournamentDbConn::fairing())
         .mount("/", routes![index, 
             crate::register::register_tournament, crate::register::register_tournament_post, 
-            crate::register::register_team, crate::register::register_team_post])// ,
-            // crate::display::show_tournament])
+            crate::register::register_team, crate::register::register_team_post,
+            crate::display::show_tournament])
         .attach(Template::fairing())
         .launch();
 }
+
+// println!("{}", some_var);

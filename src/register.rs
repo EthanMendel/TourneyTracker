@@ -5,7 +5,6 @@ use crate::db::{ InsertableTournament, InsertableTeam };
 use crate::schema::tournaments::dsl::*;
 use crate::schema::teams::dsl::*;
 use diesel::prelude::*;
-use rocket::http::RawStr;
 
 
 #[get("/registerTournament")]
@@ -25,14 +24,14 @@ pub fn register_tournament_post(data: Form<InsertableTournament>, conn: crate::T
     }
 }
 
-#[get("/registerTeam?<tournamentId>")]
-pub fn register_team(tournamentId: &RawStr) -> Template {
+#[get("/registerTeam?<tournament_id>")]
+pub fn register_team(tournament_id: i32) -> Template {
     let context: HashMap<&str, &str> = HashMap::new();
     Template::render("registerTeam", context)
 }
 
-#[post("/registerTeam?<tournamentId>", data="<data>")]
-pub fn register_team_post(data: Form<InsertableTeam>, tournamentId: &RawStr, conn: crate::TournamentDbConn) -> Result<Template, Template> {
+#[post("/registerTeam?<tournament_id>", data="<data>")]
+pub fn register_team_post(data: Form<InsertableTeam>, tournament_id: i32, conn: crate::TournamentDbConn) -> Result<Template, Template> {
     //send data to make new database entry
     println!("{:?}", &data.0);
     if diesel::insert_into(teams).values(&data.0).execute(&conn.0).is_ok() {//success
