@@ -1,12 +1,51 @@
 <html>
     <head>
-
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     </head>
     <body>
-        <form method="POST">
-            <input name="name">
+        <form id="teamForm" method="POST">
             <input name="record" value="0-0" style="display: none;">
-            <button type="submit"></button>
+            <div>
+                <span>Team Name</span>
+                <input name="name">
+            </div>
+            <div>
+                <span>Pitcher</span>
+                <input name="pitcher">
+            </div>
+            <div>
+                <span>Catcher</span>
+                <input name="catcher">
+            </div>
+            <div>
+                <span>1st Base</span>
+                <input name="first_basee">
+            </div>
+            <div>
+                <span>2nd Base</span>
+                <input name="second_basee">
+            </div>
+            <div>
+                <span>Short Stop</span>
+                <input name="short_stop">
+            </div>
+            <div>
+                <span>3rd Basee</span>
+                <input name="third_base">
+            </div>
+            <div>
+                <span>Right Field</span>
+                <input name="right_field">
+            </div>
+            <div>
+                <span>Center Field</span>
+                <input name="center_field">
+            </div>
+            <div>
+                <span>Left Field</span>
+                <input name="left_field">
+            </div>
+            <button type="submit">Register</button>
         </form>
     </body>
 </html>
