@@ -4,7 +4,13 @@
     </head>
     <body>
         <h1>Tournaments</h1>
-        <div>{{tournaments}}</div>
+        <ul>
+        {{#each tournaments}}
+            <li>
+                <a href="/showTournament?tournamentId={{this.id}}">{{this.name}}</a>
+            </li>
+        {{/each}}
+        </ul>
         <h1>Teams</h1>
         <div>{{teams}}</div>
     </body>
