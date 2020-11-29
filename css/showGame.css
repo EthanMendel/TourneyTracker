@@ -19,6 +19,12 @@ body{
   border: 50px solid transparent;
   border-top-color: white;
 }
+.base-full{
+  border-bottom-color: blue;
+}
+.base-full:after{
+  border-top-color: blue;
+}
 .first-base {
   top: 351px;
   left: 850px;

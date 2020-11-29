@@ -7,9 +7,9 @@
         <div class="field">
             <div class="outfield"></div>
             <div class="infield"></div>
-            <div class="base first-base"></div>
-            <div class="base second-base"></div>
-            <div class="base third-base"></div>
+            <div class="base first-base" data-status="emtpty"></div>
+            <div class="base second-base" data-status="empty"></div>
+            <div class="base third-base" data-status="empty"></div>
             <div class="home-plate"></div>
         </div>
         <div id="scores">
@@ -157,4 +157,14 @@
             $('#inning').html('Top ' + (inning + 1));
         }
     }
+    $('.base').click(function(e){
+        var status = $(e.target).attr('data-status');
+        if(status=='empty'){
+            $(e.target).addClass('base-full');
+            $(e.target).attr('data-status', 'full');
+        }else{
+            $(e.target).removeClass('base-full');
+            $(e.target).attr('data-status', 'empty');
+        }
+    });
 </script>
