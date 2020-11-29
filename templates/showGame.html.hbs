@@ -1,6 +1,7 @@
 <html>
     <head>
         <link rel="stylesheet" href="css/showGame.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     </head>
     <body>
         <div class="field">
@@ -26,26 +27,76 @@
             <h1 id="inning">1</h1>
         </div>
         <div id="counts">
-            <div class="strikes" data-count="0">
-                <h3>Strikes</h3>
-                <div class="circle strike"></div>
-                <div class="circle strike"></div>
-                <div class="circle strike"></div>
-            </div>
-            <div class="balls" data-count="0">
-                <h3 style="text-align: right;">Balls</h3>
-                <div class="circle ball"></div>
-                <div class="circle ball"></div>
-                <div class="circle ball"></div>
-                <div class="circle ball"></div>
-            </div>
+            <div style="display: inline-flex;">
+                <div id="strikes" class="strikes" data-count="0">
+                    <h3>Strikes</h3>
+                    <div id="s1" class="circle strike"></div>
+                    <div id="s2" class="circle strike"></div>
+                    <div id="s3" class="circle strike"></div>
+                </div>
+                <div id="balls" class="balls" data-count="0">
+                    <h3 style="text-align: right;">Balls</h3>
+                    <div id="b1" class="circle ball"></div>
+                    <div id="b2" class="circle ball"></div>
+                    <div id="b3" class="circle ball"></div>
+                    <div id="b4" class="circle ball"></div>
+                </div>
+            </div><br>
+            <button id="reset-counts">Reset Counts</button>
         </div>
         <div id="controls" data-hitting="1">
-            <button>Add Ball</button>
-            <button>Add Strike</button>
-            <button>Hit</button>
-            <button>Out</button>
-            <button>Home Run</button>
+            <button id="strike">Add Strike</button>
+            <button id="ball">Add Ball</button>
+            <button id="hit">Hit</button>
+            <button id="out">Out</button>
+            <button id="run">Home Run</button>
         </div>
     </body>
 </html>
+<script>
+    $('#strike').click(function(){
+        var count = parseInt($('#strikes').attr('data-count'));
+        switch(count){
+            case 0:
+                $('#s1').css('background-color','red');
+                break;
+            case 1:
+                $('#s2').css('background-color','red');
+                break;
+            case 2:
+                $('#s3').css('background-color','red');
+                break;
+            default:
+                console.log('something went wrong');
+                break;
+        }
+        $('#strikes').attr('data-count',count + 1);
+    });
+    $('#ball').click(function(){
+        var count = parseInt($('#balls').attr('data-count'));
+        switch(count){
+            case 0:
+                $('#b1').css('background-color','blue');
+                break;
+            case 1:
+                $('#b2').css('background-color','blue');
+                break;
+            case 2:
+                $('#b3').css('background-color','blue');
+                break;
+            case 3:
+                $('#b4').css('background-color','blue');
+                break;
+            default:
+                console.log('something went wrong');
+                break;
+        }
+        $('#balls').attr('data-count',count + 1);
+    });
+    $('#reset-counts, #hit, #out').click(function(){
+        $('.circle').css('background-color','black');
+        $('#strikes').attr('data-count',0);
+        $('#balls').attr('data-count',0);
+    });
+    
+</script>
