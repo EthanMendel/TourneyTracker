@@ -4,6 +4,7 @@ mod register;
 mod display;
 mod schema;
 mod db;
+mod error;
 
 #[macro_use]
 extern crate diesel;
