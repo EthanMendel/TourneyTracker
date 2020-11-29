@@ -5,13 +5,10 @@ use crate::schema::tournaments::dsl::*;
 use crate::db::Tournament;
 use diesel::prelude::*;
 
-#[database("tournaments")]
-pub struct TournamentDbConn(diesel::MysqlConnection);
-
 #[get("/showTournament?<tournament_id>")]
-pub fn show_tournament(tournament_id: i32, conn: TournamentDbConn) -> Template {
+pub fn show_tournament(tournament_id: i32, conn: crate::TournamentDbConn) -> Template {
     let mut context = HashMap::new();
-    let tourney = tournaments.filter(id.eq(tournament_id)).load::<Tournament>(&conn.0).unwrap();
+    let tourney = tournaments.filter(id.eq(tournament_id)).first::<Tournament>(&conn.0).unwrap();
     context.insert("tournament",serde_json::json!(tourney));
     Template::render("showTournament", context)
 }
