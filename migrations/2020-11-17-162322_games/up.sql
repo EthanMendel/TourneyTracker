@@ -1,5 +1,6 @@
 CREATE TABLE games (
     id INT(11) NOT NULL AUTO_INCREMENT,
+    game_level INT(11) NOT NULL,
     tournament_id INT(11) NOT NULL,
     team_1_id INT(11) NOT NULL,
     team_2_id INT(11) NOT NULL,

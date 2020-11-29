@@ -4,6 +4,8 @@ mod register;
 mod display;
 mod schema;
 mod db;
+mod tournaments;
+mod error;
 
 #[macro_use]
 extern crate diesel;
@@ -40,13 +42,15 @@ fn main() {
 
     rocket::ignite()
         .attach(TournamentDbConn::fairing())
-        .mount("/", routes![index, 
-            crate::register::register_tournament, crate::register::register_tournament_post, 
-            crate::register::register_team, crate::register::register_team_post,
-            crate::display::show_tournament, crate::display::show_game])
+        .mount("/", routes![
+            index,
+            register::register_tournament,
+            register::register_tournament_post,
+            register::register_team,
+            register::register_team_post,
+            display::show_tournament,
+            display::show_game])
         .mount("/css", StaticFiles::from("css"))
         .attach(Template::fairing())
         .launch();
 }
-
-// println!("{}", some_var);

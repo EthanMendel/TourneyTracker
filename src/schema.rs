@@ -1,6 +1,7 @@
 table! {
     games (id) {
         id -> Integer,
+        game_level -> Integer,
         tournament_id -> Integer,
         team_1_id -> Integer,
         team_2_id -> Integer,
@@ -46,9 +47,18 @@ table! {
     }
 }
 
+table! {
+    tournaments_teams (id) {
+        id -> Integer,
+        tournament_id -> Integer,
+        team_id -> Integer,
+    }
+}
+
 allow_tables_to_appear_in_same_query!(
     games,
     players,
     teams,
     tournaments,
+    tournaments_teams,
 );
