@@ -38,12 +38,13 @@ fn main() {
 
     rocket::ignite()
         .attach(TournamentDbConn::fairing())
-        .mount("/", routes![index, 
-            crate::register::register_tournament, crate::register::register_tournament_post, 
-            crate::register::register_team, crate::register::register_team_post,
-            crate::display::show_tournament])
+        .mount("/", routes![
+            index,
+            register::register_tournament,
+            register::register_tournament_post,
+            register::register_team,
+            register::register_team_post,
+            display::show_tournament])
         .attach(Template::fairing())
         .launch();
 }
-
-// println!("{}", some_var);
