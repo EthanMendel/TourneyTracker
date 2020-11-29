@@ -1,12 +1,14 @@
-.diamond {
+body{
+  background-color: black;
+}
+.base {
   width: 0;
   height: 0;
   border: 50px solid transparent;
-  border-bottom-color: sandybrown;
-  position: relative;
-  top: -50px;
+  border-bottom-color: white;
+  position: absolute;
 }
-.diamond:after {
+.base:after {
   content: '';
   position: absolute;
   left: -50px;
@@ -14,50 +16,57 @@
   width: 0;
   height: 0;
   border: 50px solid transparent;
-  border-top-color: sandybrown;
-}
-.base {
-  border-bottom-color: white;
-}
-.base:after {
   border-top-color: white;
 }
-.cone {
+.first-base {
+  top: 351px;
+  left: 850px;
+}
+.second-base{
+  top: 225px;
+  left: 650px;
+}
+.third-base{
+  top: 351px;
+  left: 450px;
+}
+.outfield {
+  position: absolute;
+  top: 0;
+  left: 0;
   width: 0;
   height: 0;
-  border-left: 70px solid transparent;
-  border-right: 70px solid transparent;
-  border-top: 100px solid green;
+  border-left: 700px solid transparent;
+  border-right: 700px solid transparent;
+  border-top: 700px solid green;
+  border-radius: 50%;
+}
+.infield{
+  position: absolute;
+  top: 250;
+  left: 250;
+  width: 0;
+  height: 0;
+  border-left: 450px solid transparent;
+  border-right: 450px solid transparent;
+  border-top: 450px solid sandybrown;
   border-radius: 50%;
 }
 .home-plate {
   background: white;
   display: inline-block;
-  height: 55px;
-  margin-left: 20px;
-  margin-top: 55px;
-  position: relative;
-  width: 100px;
-}
-.home-plate:before {
-  border-bottom: 35px solid white;
-  border-left: 50px solid transparent;
-  border-right: 50px solid transparent;
-  content: "";
-  height: 0;
-  left: 0;
+  height: 75px;
+  width: 75px;
   position: absolute;
-  top: -35px;
+  top: 589px;
+  left: 663px;
+}
+.home-plate:after {
+  content: '';
+  position: absolute;
+  top: 75px;
   width: 0;
-}
-.circle {
-  width: 100px;
-  height: 100px;
-  background: brown;
-  border-radius: 50%
-}
-.rectangle {
-  width: 200px;
-  height: 100px;
-  background: white;
+  height: 0;
+  border: 37px solid transparent;
+  border-top-color: white;
 }
