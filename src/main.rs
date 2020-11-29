@@ -4,6 +4,7 @@ mod register;
 mod display;
 mod schema;
 mod db;
+mod tournaments;
 mod error;
 
 #[macro_use]
