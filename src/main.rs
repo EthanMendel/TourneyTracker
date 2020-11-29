@@ -9,6 +9,9 @@ mod db;
 extern crate diesel;
 
 use rocket_contrib::templates::Template;
+use rocket_contrib::serve::StaticFiles;
+use actix_files::NamedFile;
+use std::path::{ Path, PathBuf };
 use std::collections::HashMap;
 use dotenv::dotenv;
 use diesel::prelude::*;
@@ -33,6 +36,11 @@ fn index(conn: TournamentDbConn) -> Template {
     Template::render("index", &hash)
 }
 
+#[get("/<file..>")]
+fn files(file: PathBuf) -> Option<NamedFile> {
+    NamedFile::open(Path::new("dist/").join(file)).ok()
+}
+
 fn main() {
     dotenv().ok();
 
@@ -41,7 +49,8 @@ fn main() {
         .mount("/", routes![index, 
             crate::register::register_tournament, crate::register::register_tournament_post, 
             crate::register::register_team, crate::register::register_team_post,
-            crate::display::show_tournament])
+            crate::display::show_tournament, crate::display::show_game])
+        .mount("/css", StaticFiles::from("/css"))
         .attach(Template::fairing())
         .launch();
 }

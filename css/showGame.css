@@ -1,0 +1,63 @@
+.diamond {
+  width: 0;
+  height: 0;
+  border: 50px solid transparent;
+  border-bottom-color: sandybrown;
+  position: relative;
+  top: -50px;
+}
+.diamond:after {
+  content: '';
+  position: absolute;
+  left: -50px;
+  top: 50px;
+  width: 0;
+  height: 0;
+  border: 50px solid transparent;
+  border-top-color: sandybrown;
+}
+.base {
+  border-bottom-color: white;
+}
+.base:after {
+  border-top-color: white;
+}
+.cone {
+  width: 0;
+  height: 0;
+  border-left: 70px solid transparent;
+  border-right: 70px solid transparent;
+  border-top: 100px solid green;
+  border-radius: 50%;
+}
+.home-plate {
+  background: white;
+  display: inline-block;
+  height: 55px;
+  margin-left: 20px;
+  margin-top: 55px;
+  position: relative;
+  width: 100px;
+}
+.home-plate:before {
+  border-bottom: 35px solid white;
+  border-left: 50px solid transparent;
+  border-right: 50px solid transparent;
+  content: "";
+  height: 0;
+  left: 0;
+  position: absolute;
+  top: -35px;
+  width: 0;
+}
+.circle {
+  width: 100px;
+  height: 100px;
+  background: brown;
+  border-radius: 50%
+}
+.rectangle {
+  width: 200px;
+  height: 100px;
+  background: white;
+}
