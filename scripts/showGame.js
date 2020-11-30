@@ -52,7 +52,7 @@ $(document).ready(function(){
         clearCounts();
     });
     $('.base').click(function(e){
-        var status = $(e.target).attr('data-status');
+        const status = $(e.target).attr('data-status');
         if(status=='empty'){
             $(e.target).addClass('base-full');
             $(e.target).attr('data-status', 'full');
@@ -60,7 +60,17 @@ $(document).ready(function(){
             $(e.target).removeClass('base-full');
             $(e.target).attr('data-status', 'empty');
         }
-    });    
+    });
+    $('#run').click(function(){
+        const status = $('#inning').attr('data-status');
+        if(status == 'top'){
+            const score = parseInt($('#team-score-1').html());
+            $('#team-score-1').html(score + 1);
+        }else{
+            const score = parseInt($('#team-score-2').html());
+            $('#team-score-2').html(score + 1);
+        }
+    });
 });
 function clearCounts(){
     $('.strike, .ball').css('background-color','black');
@@ -101,7 +111,25 @@ function switchInning(){
         $('#inning').attr('data-status', 'bot');
         $('#inning').html('Bot ' + inning);
     }else{
-        $('#inning').attr('data-status', 'top');
-        $('#inning').html('Top ' + (inning + 1));
+        const score1 = parseInt($('#team-score-1').html());
+        const score2 = parseInt($('#teaem-score-2').html());
+        if(Math.abs(score1-score2) >= 10 || inning > 2){
+            if(score1!=score2){
+                const name1 = $('#team-name-1').html();
+                const name2 = $('#team-name-2').html();
+                if(score1>score2){
+                    $('#inning').html(name1 + ' wins after ' + inning + ' innings');
+                }else{
+                    $('#inning').html(name2 + ' wins after ' + inning + ' innings');
+                }
+                //remove event listeners
+            }else{
+                $('#inning').attr('data-status', 'top');
+                $('#inning').html('Top ' + (inning + 1));        
+            }
+        }else{
+            $('#inning').attr('data-status', 'top');
+            $('#inning').html('Top ' + (inning + 1));    
+        }
     }
 }
