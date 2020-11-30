@@ -45,6 +45,7 @@ fn main() {
             crate::register::register_team, crate::register::register_team_post,
             crate::display::show_tournament, crate::display::show_game])
         .mount("/css", StaticFiles::from("css"))
+        .mount("/scripts", StaticFiles::from("scripts"))
         .attach(Template::fairing())
         .launch();
 }

@@ -1,6 +1,7 @@
 <html>
     <head>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script type="text/javascript" src="../scripts/showTournament.js"></script>
     </head>
     <body>
         <h1>{{tournament.name}}</h1>
@@ -9,8 +10,3 @@
         <button id="register-team">Register Team</button>
     </body>
 </html>
-<script>
-    $('#register-team').click(function(){
-        location.href="/registerTeam?tournament_id={{tournament.id}}";
-    });
-</script>
