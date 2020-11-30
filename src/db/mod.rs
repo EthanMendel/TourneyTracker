@@ -1,3 +1,5 @@
+mod game_level;
+
 use crate::schema::*;
 use serde::Serialize;
 
@@ -17,6 +19,8 @@ pub struct InsertableTournament {
 #[belongs_to(Tournament)]
 pub struct Game {
     pub id: i32,
+    #[diesel(deserialize_as = "i32")]
+    pub game_level: game_level::GameLevel,
     pub tournament_id: i32,
     pub team_1_id: i32,
     pub team_2_id: i32,
@@ -49,6 +53,23 @@ pub struct Team {
 pub struct InsertableTeam {
     pub name: String,
     pub record: String,
+}
+
+#[derive(Identifiable, Queryable, Debug, Associations, Serialize)]
+#[belongs_to(Tournament)]
+#[belongs_to(Team)]
+#[table_name = "tournaments_teams"]
+pub struct TournamentTeam {
+    pub id: i32,
+    pub tournament_id: i32,
+    pub team_id: i32,
+}
+
+#[derive(Insertable, Debug, PartialEq, Clone, Serialize)]
+#[table_name = "tournaments_teams"]
+pub struct InsertableTournamentTeam {
+    pub tournament_id: i32,
+    pub team_id: i32,
 }
 
 #[derive(Identifiable, Queryable, Associations, PartialEq, Debug)]
