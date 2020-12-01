@@ -1,7 +1,7 @@
 #![feature(proc_macro_hygiene, decl_macro)]
 
 mod register;
-mod display;
+mod show;
 mod schema;
 mod db;
 mod tournaments;
@@ -48,8 +48,8 @@ fn main() {
             register::register_tournament_post,
             register::register_team,
             register::register_team_post,
-            display::show_tournament,
-            display::show_game])
+            show::show_tournament,
+            show::show_game])
         .mount("/css", StaticFiles::from("css"))
         .mount("/scripts", StaticFiles::from("scripts"))
         .attach(Template::fairing())
