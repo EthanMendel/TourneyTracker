@@ -48,7 +48,12 @@ $(document).ready(function(){
             $('#balls').attr('data-count',count + 1);
         }
     });
-    $('#reset-counts, #hit, #out').click(function(){
+    $('#reset-counts').click(function(){
+        clearCounts();
+        $('.out').css('background-color','black');
+        $('#outs').attr('data-count', 0);
+    });
+    $('#hit, #out').click(function(){
         clearCounts();
     });
     $('.base').click(function(e){
@@ -71,6 +76,9 @@ $(document).ready(function(){
             $('#team-score-2').html(score + 1);
         }
     });
+    $('#out').click(function(){
+        addOut();
+    })
 });
 function clearCounts(){
     $('.strike, .ball').css('background-color','black');

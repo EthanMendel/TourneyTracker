@@ -42,8 +42,10 @@ pub struct Game {
 }
 
 #[derive(Identifiable, Queryable, PartialEq, Debug, Serialize)]
+#[belongs_to(Tournament)]
 pub struct Team {
     pub id: i32,
+    pub tournament_id: i32,
     pub name: String,
     pub record: String,
 }
@@ -53,6 +55,7 @@ pub struct Team {
 pub struct InsertableTeam {
     pub name: String,
     pub record: String,
+    pub tournament_id: i32,
 }
 
 #[derive(Identifiable, Queryable, Debug, Associations, Serialize)]
