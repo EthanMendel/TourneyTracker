@@ -25,9 +25,9 @@ pub fn register_tournament_post(data: Form<InsertableTournament>, conn: crate::T
     //send data to make new database entry
     println!("{:?}", &data.0);
     if diesel::insert_into(tournaments).values(&data.0).execute(&conn.0).is_ok() {//success
-        Ok(Template::render("RegisterTournamentSuccess", &data.0))
+        Ok(Template::render("registerTournamentSuccess", &data.0))
     } else {
-        Err(Template::render("RegisterTournamentFailure", &data.0))
+        Err(Template::render("registerTournamentFailure", &data.0))
     }
 }
 
