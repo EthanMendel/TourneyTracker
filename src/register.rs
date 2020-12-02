@@ -38,9 +38,14 @@ pub fn register_team(tourney_id: i32, conn: crate::TournamentDbConn) -> Template
 pub fn register_team_post(data: Form<InsertableTeam>, tourney_id: i32, conn: crate::TournamentDbConn) -> Result<Template, Template> {
     //send data to make new database entry
     println!("{:?}", &data.0);
-    if diesel::insert_into(teams).values(&data.0).execute(&conn.0).is_ok() {//success
-        Ok(Template::render("RegisterTeamSuccess", &data.0))
+    let team = InsertableTeam {
+        tournament_id: Some(tourney_id),
+        record: Some("0-0".to_string()),
+        ..data.0
+    };
+    if diesel::insert_into(teams).values(&team).execute(&conn.0).is_ok() {//success
+        Ok(Template::render("RegisterTeamSuccess", &team))
     } else {
-        Err(Template::render("RegisterTeamFailure", &data.0))
+        Err(Template::render("RegisterTeamFailure", &team))
     }
 }
