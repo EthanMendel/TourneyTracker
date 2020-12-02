@@ -19,6 +19,9 @@ use diesel::prelude::*;
 use crate::schema::tournaments::dsl::*;
 use crate::schema::teams::dsl::*;
 use crate::db::{ Tournament, Team };
+use std::io::Write;
+use handlebars::{Handlebars, HelperDef, RenderContext, Helper, Context, JsonRender, HelperResult, Output, RenderError};
+use serde_json::value::Value;
 
 #[macro_use] extern crate rocket;
 #[macro_use] extern crate rocket_contrib;
