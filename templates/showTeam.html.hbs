@@ -1,0 +1,31 @@
+<html>
+    <head>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script type="text/javascript" src="../scripts/showTournament.js"></script>
+        <script type="text/javascript" src="../scripts/util.js"></script>
+    </head>
+    <body>
+        <h1>{{team.name}}</h1>
+        <div class="players">
+            <h3>Pitcher: </h3>
+            <div>{{team.pitcher}}</div>
+            <h3>Catcheer: </h3>
+            <div>{{team.catcher}}</div>
+            <h3>1st Base: </h3>
+            <div>{{team.base_1}}</div>
+            <h3>2nd Base: </h3>
+            <div>{{team.base_2}}</div>
+            <h3>Short Stop: </h3>
+            <div>{{team.short_stop}}</div>
+            <h3>3rd Base: </h3>
+            <div>{{team.base_3}}</div>
+            <h3>Right Field: </h3>
+            <div>{{team.right_field}}</div>
+            <h3>Center Field: </h3>
+            <div>{{team.center_field}}</div>
+            <h3>Left Field: </h3>
+            <div>{{team.left_field}}</div>
+            <a href="/showTournament?tourney_id={{team.tournament_id}}"">Go back to Tournament</a>
+        </div>
+    </body>
+</html>

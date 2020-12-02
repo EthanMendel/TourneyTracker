@@ -33,6 +33,14 @@ pub fn show_tournament(tourney_id: i32, conn: crate::TournamentDbConn) -> Templa
 // }
 #[get("/showGame")]
 pub fn show_game() -> Template{
-    let mut context: HashMap<&str, &str> = HashMap::new();
+    let context: HashMap<&str, &str> = HashMap::new();
     Template::render("showGame", context)
+}
+
+#[get("/showTeam?<team_id>")]
+pub fn show_team(team_id: i32, conn: crate::TournamentDbConn) -> Template {
+    let mut context = HashMap::new();
+    let tourney_team = teams.filter(teams::dsl::id.eq(team_id)).first::<Team>(&conn.0).unwrap();
+    context.insert("team",serde_json::json!(tourney_team));
+    Template::render("showTeam",context)
 }
