@@ -8,35 +8,36 @@ table! {
         team_batting -> Nullable<Integer>,
         inning -> Nullable<Integer>,
         score -> Nullable<Varchar>,
-        batter -> Nullable<Integer>,
+        batter -> Nullable<Varchar>,
         strikes -> Nullable<Integer>,
         balls -> Nullable<Integer>,
-        catcher -> Nullable<Integer>,
-        pitcher -> Nullable<Integer>,
-        base_1 -> Nullable<Integer>,
-        base_2 -> Nullable<Integer>,
-        short_stop -> Nullable<Integer>,
-        base_3 -> Nullable<Integer>,
-        right_field -> Nullable<Integer>,
-        center_field -> Nullable<Integer>,
-        left_field -> Nullable<Integer>,
-    }
-}
-
-table! {
-    players (id) {
-        id -> Integer,
-        name -> Varchar,
-        number -> Integer,
-        team_id -> Integer,
+        pitcher -> Nullable<Varchar>,
+        catcher -> Nullable<Varchar>,
+        base_1 -> Nullable<Varchar>,
+        base_2 -> Nullable<Varchar>,
+        short_stop -> Nullable<Varchar>,
+        base_3 -> Nullable<Varchar>,
+        right_field -> Nullable<Varchar>,
+        center_field -> Nullable<Varchar>,
+        left_field -> Nullable<Varchar>,
     }
 }
 
 table! {
     teams (id) {
         id -> Integer,
+        tournament_id -> Integer,
         name -> Varchar,
         record -> Varchar,
+        pitcher -> Nullable<Varchar>,
+        catcher -> Nullable<Varchar>,
+        base_1 -> Nullable<Varchar>,
+        base_2 -> Nullable<Varchar>,
+        short_stop -> Nullable<Varchar>,
+        base_3 -> Nullable<Varchar>,
+        right_field -> Nullable<Varchar>,
+        center_field -> Nullable<Varchar>,
+        left_field -> Nullable<Varchar>,
     }
 }
 
@@ -57,7 +58,6 @@ table! {
 
 allow_tables_to_appear_in_same_query!(
     games,
-    players,
     teams,
     tournaments,
     tournaments_teams,

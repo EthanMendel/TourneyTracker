@@ -1,15 +1,19 @@
 use rocket_contrib::templates::Template;
 use std::collections::HashMap;
 use crate::schema::tournaments::dsl::*;
-// use crate::schema::games::dsl::*;
+use crate::schema::tournaments;
+use crate::schema::teams::dsl::*;
 use crate::db::Tournament;
+use crate::db::Team;
 use diesel::prelude::*;
 
-#[get("/showTournament?<tournament_id>")]
-pub fn show_tournament(tournament_id: i32, conn: crate::TournamentDbConn) -> Template {
+#[get("/showTournament?<tourney_id>")]
+pub fn show_tournament(tourney_id: i32, conn: crate::TournamentDbConn) -> Template {
     let mut context = HashMap::new();
-    let tourney = tournaments.filter(id.eq(tournament_id)).first::<Tournament>(&conn.0).unwrap();
+    let tourney = tournaments.filter(tournaments::dsl::id.eq(tourney_id)).first::<Tournament>(&conn.0).unwrap();
     context.insert("tournament",serde_json::json!(tourney));
+    let tourney_teams = teams.filter(tournament_id.eq(tourney_id)).load::<Team>(&conn.0).unwrap();
+    context.insert("teams",serde_json::json!(tourney_teams));
     Template::render("showTournament", context)
 }
 

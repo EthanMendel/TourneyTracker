@@ -27,27 +27,36 @@ pub struct Game {
     pub team_batting: i32,
     pub inning: i32,
     pub score: String,
-    pub batter: i32,
+    pub batter: String,
     pub strikes: i32,
     pub balls: i32,
-    pub catcher: i32,
-    pub pitcher: i32,
-    pub base_1: i32,
-    pub base_2: i32,
-    pub short_stop: i32,
-    pub base_3: i32,
-    pub right_field: i32,
-    pub center_field: i32,
-    pub left_field: i32
+    pub pitcher: String,
+    pub catcher: String,
+    pub base_1: String,
+    pub base_2: String,
+    pub short_stop: String,
+    pub base_3: String,
+    pub right_field: String,
+    pub center_field: String,
+    pub left_field: String
 }
 
-#[derive(Identifiable, Queryable, PartialEq, Debug, Serialize)]
+#[derive(Identifiable, Queryable, PartialEq, Debug, Serialize, Associations)]
 #[belongs_to(Tournament)]
 pub struct Team {
     pub id: i32,
     pub tournament_id: i32,
     pub name: String,
     pub record: String,
+    pub pitcher: Option<String>,
+    pub catcher: Option<String>,
+    pub base_1: Option<String>,
+    pub base_2: Option<String>,
+    pub short_stop: Option<String>,
+    pub base_3: Option<String>,
+    pub right_field: Option<String>,
+    pub center_field: Option<String>,
+    pub left_field:Option<String>
 }
 
 #[derive(Insertable, Debug, PartialEq, Clone, Serialize, FromForm)]
@@ -56,6 +65,15 @@ pub struct InsertableTeam {
     pub name: String,
     pub record: String,
     pub tournament_id: i32,
+    pub pitcher: String,
+    pub catcher: String,
+    pub base_1: String,
+    pub base_2: String,
+    pub short_stop: String,
+    pub base_3: String,
+    pub right_field: String,
+    pub center_field: String,
+    pub left_field:String
 }
 
 #[derive(Identifiable, Queryable, Debug, Associations, Serialize)]
@@ -72,14 +90,5 @@ pub struct TournamentTeam {
 #[table_name = "tournaments_teams"]
 pub struct InsertableTournamentTeam {
     pub tournament_id: i32,
-    pub team_id: i32,
-}
-
-#[derive(Identifiable, Queryable, Associations, PartialEq, Debug)]
-#[belongs_to(Team)]
-pub struct Player {
-    pub id: i32,
-    pub name: String,
-    pub number: i32,
     pub team_id: i32,
 }
