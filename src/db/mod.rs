@@ -63,8 +63,8 @@ pub struct Team {
 #[table_name = "teams"]
 pub struct InsertableTeam {
     pub name: String,
-    pub record: String,
-    pub tournament_id: i32,
+    pub record: Option<String>,
+    pub tournament_id: Option<i32>,
     pub pitcher: String,
     pub catcher: String,
     pub base_1: String,
