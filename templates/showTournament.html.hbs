@@ -7,14 +7,22 @@
     <body>
         <h1>{{tournament.name}}</h1>
         <h3>Teams Registered</h3>
-        {{#each teams}}
-            <div class="team">{{this.name}}</div>
-        {{/each}}
+        <ul>
+            {{#each teams}}
+                <li>
+                    <a class="team">{{this.name}}</a>
+                </li>
+            {{/each}}
+        </ul>
         <button id="register-team">Register Team</button>
         <h3>Games for this Tournament</h3>
-        {{#each games}}
-            <div class="game">{{this.id}}</div>
-        {{/each}}
+        <ul>
+            {{#each games}}
+            <li>
+                <a class="game">{{this.id}}</a>
+            </li>
+            {{/each}}
+        </ul>
         <button id="make-bracket">Make Bracket</button>
     </body>
 </html>
