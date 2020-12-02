@@ -51,6 +51,7 @@ fn main() {
             register::register_tournament_post,
             register::register_team,
             register::register_team_post,
+            register::register_game_post,
             show::show_tournament,
             show::show_game])
         .mount("/css", StaticFiles::from("css"))

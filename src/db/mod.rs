@@ -1,4 +1,4 @@
-mod game_level;
+pub mod game_level;
 
 use crate::schema::*;
 use serde::Serialize;
@@ -15,7 +15,7 @@ pub struct InsertableTournament {
     pub name: String,
 }
 
-#[derive(Identifiable, Queryable, Associations, PartialEq, Debug)]
+#[derive(Identifiable, Queryable, PartialEq, Debug, Serialize, Associations)]
 #[belongs_to(Tournament)]
 pub struct Game {
     pub id: i32,
@@ -25,20 +25,33 @@ pub struct Game {
     pub team_1_id: i32,
     pub team_2_id: i32,
     pub team_batting: i32,
+    pub team_1_batter: i32,
+    pub team_2_batter: i32,
     pub inning: i32,
     pub score: String,
     pub batter: String,
     pub strikes: i32,
-    pub balls: i32,
-    pub pitcher: String,
-    pub catcher: String,
-    pub base_1: String,
-    pub base_2: String,
-    pub short_stop: String,
-    pub base_3: String,
-    pub right_field: String,
-    pub center_field: String,
-    pub left_field: String
+    pub balls: i32,//need to add outs
+    pub outs: i32
+}
+
+#[derive(Insertable, Queryable, Associations, PartialEq, Debug, Serialize)]
+#[table_name = "games"]
+pub struct InsertableGame {
+    #[diesel(deserialize_as = "i32")]
+    pub game_level: game_level::GameLevel,
+    pub tournament_id: i32,
+    pub team_1_id: i32,
+    pub team_2_id: i32,
+    pub team_batting: i32,
+    pub team_1_batter: i32,
+    pub team_2_batter: i32,
+    pub inning: i32,
+    pub score: String,
+    pub batter: String,
+    pub strikes: i32,
+    pub balls: i32,//need to add outs
+    pub outs: i32
 }
 
 #[derive(Identifiable, Queryable, PartialEq, Debug, Serialize, Associations)]

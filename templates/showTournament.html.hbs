@@ -11,6 +11,10 @@
             <div class="team">{{this.name}}</div>
         {{/each}}
         <button id="register-team">Register Team</button>
+        <h3>Games for this Tournament</h3>
+        {{#each games}}
+            <div class="game">{{this.id}}</div>
+        {{/each}}
         <button id="make-bracket">Make Bracket</button>
     </body>
 </html>

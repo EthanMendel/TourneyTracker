@@ -4,10 +4,11 @@ use diesel::backend::Backend;
 use diesel::deserialize::{self, FromSql};
 use diesel::serialize::{self, Output, ToSql};
 use diesel::sql_types::Integer;
+use serde::Serialize;
 
 use crate::error::TourneyError;
 
-#[derive(PartialEq, Debug, Eq, AsExpression)]
+#[derive(PartialEq, Debug, Eq, AsExpression, Serialize)]
 #[sql_type = "Integer"]
 pub enum GameLevel {
     Qualification,
