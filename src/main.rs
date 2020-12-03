@@ -6,6 +6,7 @@ mod schema;
 mod db;
 mod tournaments;
 mod error;
+mod update;
 
 #[macro_use]
 extern crate diesel;
@@ -54,7 +55,8 @@ fn main() {
             register::register_game_post,
             show::show_tournament,
             show::show_team,
-            show::show_game])
+            show::show_game,
+            update::update_db])
         .mount("/css", StaticFiles::from("css"))
         .mount("/scripts", StaticFiles::from("scripts"))
         .attach(Template::fairing())

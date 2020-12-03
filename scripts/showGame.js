@@ -144,3 +144,11 @@ function switchInning(){
         }
     }
 }
+function sendPost(type, method){
+    const tourney_id = getParameterByName('tourney_id');
+    const game_id = getParameterByName('game_id');
+    $.post('/updateDB?tourney_id=' + tourney_id + '&game_id=' + game_id + "&to_update=" + type + "&how_to_change=" + method, 
+    function(){
+        alert('success');
+    })
+}

@@ -24,13 +24,6 @@ pub fn show_tournament(tourney_id: i32, conn: crate::TournamentDbConn) -> Templa
     Template::render("showTournament", context)
 }
 
-// #[get("/showGame?<game_id>")]
-// pub fn show_game(game_id: i32, conn: TournamentDbConn) -> Template {
-//     let mut context = HashMap::new();
-//     let game = games.filter(id.eq(game_id)).load::<Game>(&conn.0).unwrap();
-//     context.insert("tournament",serde_json::json!(game));
-//     Template::render("showGame", context)
-// }
 #[get("/showGame?<game_id>")]
 pub fn show_game(game_id: i32, conn: crate::TournamentDbConn) -> Template{
     let mut context= HashMap::new();
