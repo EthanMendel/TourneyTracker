@@ -1,13 +1,4 @@
 $(document).ready(function(){
-    if(!isNotWorker()){
-        $('#login').hide();
-        $('.game').each(function(i,ele){
-            const element = $(ele);
-            element.attr('href',element.attr('href')+"&worker=true");
-        });
-    }else{
-        $('#make-bracket').hide();
-    }
     const teams = $('.team');
     const games = $('.game');
     if(teams.length >= 4){
@@ -20,6 +11,15 @@ $(document).ready(function(){
     if(games.length > 0){
         $('#make-bracket').hide();
         $('#register-team').hide();
+    }
+    if(isNotWorker()){
+        $('#make-bracket').hide();
+    }else{
+        $('#login').hide();
+        $('.game').each(function(i,ele){
+            const element = $(ele);
+            element.attr('href',element.attr('href')+"&worker=true");
+        });
     }
     $('#register-team').click(function(){
         //get query parm
