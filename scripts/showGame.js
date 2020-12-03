@@ -95,10 +95,12 @@ $(document).ready(function(){
     });
     $('#edit-score').click(function(){
         const newScore = prompt('Enter new score here (format as "X-X" with team 1\'s score first');
-        const newScores = newScore.split("-");
-        $('#team-score-1').html(newScores[0]);
-        $('#team-score-2').html(newScores[1]);
-        sendPost('score', newScore);
+        if(newScore){
+            const newScores = newScore.split("-");
+            $('#team-score-1').html(newScores[0]);
+            $('#team-score-2').html(newScores[1]);
+            sendPost('score', newScore);    
+        }
     });
 });
 function clearCounts(){
