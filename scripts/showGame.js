@@ -1,4 +1,5 @@
 $(document).ready(function(){
+    initItems();
     $('#strike').click(function(){
         var count = parseInt($('#strikes').attr('data-count'));
         var flag = false;
@@ -136,6 +137,7 @@ function switchInning(){
     var inning = parseInt($('#inning').html().split(' ')[1]);
     if(state=='top'){
         $('#inning').attr('data-status', 'bot');
+        $('#inning').attr('data-batting', 2);
         $('#inning').html('Bot ' + inning);
         sendPost('team_batting', 2);
     }else{
@@ -155,11 +157,13 @@ function switchInning(){
                 sendPost('inning', -1);
             }else{
                 $('#inning').attr('data-status', 'top');
+                $('#inning').attr('data-batting', 2);
                 $('#inning').html('Top ' + (inning + 1));        
                 sendPost('inning', inning + 1);
             }
         }else{
             $('#inning').attr('data-status', 'top');
+            $('#inning').attr('data-batting', 2);
             $('#inning').html('Top ' + (inning + 1));    
             sendPost('inning', inning + 1)
         }
@@ -182,4 +186,46 @@ function sendPost(type, method){
         alert('Something went wrong\nNeed to refresh');
         location.reload();
     });
+}
+function initItems(){
+    const batting = $('#inning').attr('data-batting');
+    if(batting == 1){
+        $('#inning').attr('data-status','top');
+        $('#inning').html('Top ' + $('#inning').html());
+    }else{
+        $('#inning').attr('data-status','bot');
+        $('#inning').html('Bot ' + $('#inning').html());
+    }
+    const scores = $('#scores').attr('data-score').split('-');
+    $('#team-score-1').html(scores[0]);
+    $('#team-score-2').html(scores[1]);
+    const strikes = parseInt($('#strikes').attr('data-count'));
+    switch(strikes){
+        case 1:
+            $('#s1').css('background-color','red');
+            break;
+        case 2:
+            $('#s1').css('background-color','red');
+            $('#s2').css('background-color','red');
+    }
+    const balls = parseInt($('#balls').attr('data-count'));
+    switch(balls){
+        case 1:
+            $('#b1').css('background-color','blue');
+            break;
+        case 2:
+            $('#b1').css('background-color','blue');
+            $('#b2').css('background-color','blue');
+    }
+    const outs = parseInt($('#outs').attr('data-count'));
+    switch(outs){
+        case 1:
+            $('#o1').css('background-color','white');
+            break;
+        case 2:
+            $('#o1').css('background-color','white');
+            $('#o2').css('background-color','white');
+    }
+
+
 }

@@ -29,6 +29,7 @@ pub fn show_game(game_id: i32, conn: crate::TournamentDbConn) -> Template{
     let mut context= HashMap::new();
     let tourney_game = games.filter(games::dsl::id.eq(game_id)).first::<Game>(&conn.0).unwrap();
     context.insert("game", serde_json::json!(tourney_game));
+    println!("{:?}", context);
     Template::render("showGame", context)
 }
 

@@ -14,30 +14,30 @@
             <div class="base third-base" data-status="empty"></div>
             <div class="home-plate"></div>
         </div>
-        <div id="scores">
+        <div id="scores" data-score="{{game.score}}">
             <div class="score score-1">
-                <h4 id="team-name-1">Team Name 1</h4>
+                <h4 id="team-name-1">Team ID: {{game.team_1_id}}</h4>
                 <h1 id="team-score-1">0</h1>
             </div>
             <div class="score score-2">
-                <h4 id="team-name-2">Team Name 2</h4>
+                <h4 id="team-name-2">Team ID: {{game.team_2_id}}</h4>
                 <h1 id="team-score-2">0</h1>
             </div>
         </div>
         <div class="inning">
             <h4>Inning</h4>
-            <h1 id="inning" data-status="top">Top 1</h1>
+            <h1 id="inning" data-status="" data-batting="{{game.team_batting}}">{{game.inning}}</h1>
             <button id="to-tournament" data-tourney-id="{{game.tournament_id}}">Back to Tournament</button>
         </div>
         <div id="counts">
             <div style="display: inline-flex;">
-                <div id="strikes" class="strikes" data-count="0">
+                <div id="strikes" class="strikes" data-count="{{game.strikes}}">
                     <h3>Strikes</h3>
                     <div id="s1" class="circle strike"></div>
                     <div id="s2" class="circle strike"></div>
                     <div id="s3" class="circle strike"></div>
                 </div>
-                <div id="balls" class="balls" data-count="0">
+                <div id="balls" class="balls" data-count="{{game.balls}}">
                     <h3 style="text-align: right;">Balls</h3>
                     <div id="b1" class="circle ball"></div>
                     <div id="b2" class="circle ball"></div>
@@ -46,7 +46,7 @@
                 </div>
             </div><br>
             <div>
-                <div id="outs" class="outs" data-count="0">
+                <div id="outs" class="outs" data-count="{{game.outs}}">
                     <h3>Outs</h3>
                     <div id="o1" class="circle out"></div>
                     <div id="o2" class="circle out"></div>
