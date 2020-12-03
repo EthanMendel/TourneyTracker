@@ -1,4 +1,13 @@
 $(document).ready(function(){
+    if(!isNotWorker()){
+        $('#login').hide();
+        $('.game').each(function(i,ele){
+            const element = $(ele);
+            element.attr('href',element.attr('href')+"&worker=true");
+        });
+    }else{
+        $('#make-bracket').hide();
+    }
     const teams = $('.team');
     const games = $('.game');
     if(teams.length >= 4){
@@ -22,5 +31,9 @@ $(document).ready(function(){
         $.post('/registerGames?tourney_id='+tournament_id,function(){
             location.reload();
         });
-    })
+    });
+    $('#login').click(function(){
+        const ref = location.href;
+        location.href=location.href + "&worker=true";
+    });
 });

@@ -1,5 +1,10 @@
 $(document).ready(function(){
     initItems();
+    if(isNotWorker()){
+        $('#controls').hide();
+        $('#reset-counts').hide();
+        $('#edit-score').hide();
+    }
     $('#strike').click(function(){
         var count = parseInt($('#strikes').attr('data-count'));
         var flag = false;
