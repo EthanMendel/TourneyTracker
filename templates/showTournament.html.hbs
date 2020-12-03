@@ -20,7 +20,7 @@
         <ul>
             {{#each games}}
             <li>
-                <a class="game" href="/showGame?tourney_id={{this.tournament_id}}&game_id={{this.id}}">Game #{{this.id}}, Team {{this.team_1_id}} vs Team {{this.team_2_id}}</a>
+                <a class="game" href="/showGame?tourney_id={{this.tournament_id}}&game_id={{this.id}}">Game #{{this.id}}, Team {{this.team_1_id}} vs Team {{this.team_2_id}}; {{this.game_level}}</a>
             </li>
             {{/each}}
         </ul>
