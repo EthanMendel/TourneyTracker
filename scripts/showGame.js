@@ -79,6 +79,9 @@ $(document).ready(function(){
     $('#out').click(function(){
         addOut();
     })
+    $('#to-tournament').click(function(ev){
+        location.href="/showTournament?tourney_id="+$(ev.target).attr('data-tourney-id');
+    });
 });
 function clearCounts(){
     $('.strike, .ball').css('background-color','black');
