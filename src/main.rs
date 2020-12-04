@@ -53,6 +53,7 @@ fn main() {
             register::register_team,
             register::register_team_post,
             register::register_game_post,
+            register::game_finished,
             show::show_tournament,
             show::show_team,
             show::show_game,

@@ -91,7 +91,11 @@ $(document).ready(function(){
         addOut();
     })
     $('#to-tournament').click(function(ev){
-        location.href="/showTournament?tourney_id="+$(ev.target).attr('data-tourney-id');
+        if(isNotWorker){
+            location.href="/showTournament?tourney_id="+$(ev.target).attr('data-tourney-id');
+        }else{
+            location.href="/showTournament?tourney_id="+$(ev.target).attr('data-tourney-id') + "&worker=true";
+        }
     });
     $('#edit-score').click(function(){
         const newScore = prompt('Enter new score here (format as "X-X" with team 1\'s score first');
@@ -105,9 +109,9 @@ $(document).ready(function(){
 });
 function clearCounts(){
     $('.strike, .ball').css('background-color','black');
-    $('#strike').attr('data-count', 0);
+    $('#strikes').attr('data-count', 0);
     sendPost('strike', 0);
-    $('#ball').attr('data-count', 0);
+    $('#balls').attr('data-count', 0);
     sendPost('ball', 0);
 }
 function addOut(){
@@ -125,6 +129,7 @@ function addOut(){
             flag = true;
             switchInning();
             $('.out').css('background-color','black');
+            sendPost('out', 0);
             break;
         default:
             console.log('something went wrong');
@@ -150,7 +155,7 @@ function switchInning(){
     }else{
         sendPost('team_batting', 1);
         const score1 = parseInt($('#team-score-1').html());
-        const score2 = parseInt($('#teaem-score-2').html());
+        const score2 = parseInt($('#team-score-2').html());
         if(Math.abs(score1-score2) >= 10 || inning > 2){
             if(score1!=score2){
                 const name1 = $('#team-name-1').html();
@@ -161,7 +166,7 @@ function switchInning(){
                     $('#inning').html(name2 + ' wins after ' + inning + ' innings');
                 }
                 //remove event listeners
-                sendPost('inning', -1);
+                finishGame();
             }else{
                 $('#inning').attr('data-status', 'top');
                 $('#inning').attr('data-batting', 2);
@@ -195,17 +200,29 @@ function sendPost(type, method){
     });
 }
 function initItems(){
-    const batting = $('#inning').attr('data-batting');
-    if(batting == 1){
-        $('#inning').attr('data-status','top');
-        $('#inning').html('Top ' + $('#inning').html());
-    }else{
-        $('#inning').attr('data-status','bot');
-        $('#inning').html('Bot ' + $('#inning').html());
-    }
     const scores = $('#scores').attr('data-score').split('-');
     $('#team-score-1').html(scores[0]);
     $('#team-score-2').html(scores[1]);
+    const batting = $('#inning').attr('data-batting');
+    const inning = $('#inning').html();
+    if(batting != -1){
+        if(batting == 1){
+            $('#inning').attr('data-status','top');
+            $('#inning').html('Top ' + inning);
+        }else{
+            $('#inning').attr('data-status','bot');
+            $('#inning').html('Bot ' + inning);
+        }
+    }else{
+        if( scores[0] > scores[1]){
+            const name1 = $('#team-name-1').html();
+            $('#inning').html(name1 + ' wins after ' + inning + ' innings');
+        }else{
+            const name2 = $('#team-name-2').html();
+            $('#inning').html(name2 + ' wins after ' + inning + ' innings');
+
+        }
+    }
     const strikes = parseInt($('#strikes').attr('data-count'));
     switch(strikes){
         case 1:
@@ -233,6 +250,26 @@ function initItems(){
             $('#o1').css('background-color','white');
             $('#o2').css('background-color','white');
     }
-
-
+}
+function finishGame(){
+    sendPost('team_batting', -1);
+    const level = $('#game-level').html();
+    if(level!='Final'){
+        const tourney_id = getParameterByName('tourney_id');
+        const game_id = getParameterByName('game_id');
+        $.post('/gameFinsihed?tourney_id=' + tourney_id + '&game_id=' + game_id, 
+        function(data){
+            data = JSON.parse(data);
+            console.log(data);
+            if(!data.success){
+                alert('Something went wrong\nNeed to refresh');
+                location.reload();
+            };
+        }).fail(function(data){
+            data = JSON.parse(data);
+            console.log(data);
+            alert('Something went wrong\nNeed to refresh');
+            location.reload();
+        });    
+    }
 }

@@ -16,15 +16,16 @@
         </div>
         <div id="scores" data-score="{{game.score}}">
             <div class="score score-1">
-                <h4 id="team-name-1">Team ID: {{game.team_1_id}}</h4>
+                <h4 id="team-name-1">{{game.team_1_id}}</h4>
                 <h1 id="team-score-1">0</h1>
             </div>
             <div class="score score-2">
-                <h4 id="team-name-2">Team ID: {{game.team_2_id}}</h4>
+                <h4 id="team-name-2">{{game.team_2_id}}</h4>
                 <h1 id="team-score-2">0</h1>
             </div>
         </div>
         <div class="inning">
+            <h2 id="game-level">{{game.game_level}}</h2>
             <h4>Inning</h4>
             <h1 id="inning" data-status="" data-batting="{{game.team_batting}}">{{game.inning}}</h1>
             <button id="to-tournament" data-tourney-id="{{game.tournament_id}}">Back to Tournament</button>

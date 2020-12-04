@@ -9,9 +9,11 @@ use diesel::prelude::*;
 use crate::db::Tournament;
 use crate::db::Game;
 use crate::schema::games::dsl::*;
+use crate::schema::games;
 use crate::schema::teams;
 use crate::db::Team;
 use crate::db::game_level::GameLevel::Semifinal;
+use crate::db::game_level::GameLevel::Final;
 
 
 #[get("/registerTournament")]
@@ -81,7 +83,7 @@ pub fn register_game_post(tourney_id: i32, conn: crate::TournamentDbConn) -> Res
     let mut needExtraAdd = false;
     for (i, t) in tourney_teams.iter().enumerate(){
         println!("{:?}", i);
-        if (i % 2 == 0) {
+        if i % 2 == 0 {
             needExtraAdd = true;
             game.team_1_id = t.id;
             game.team_batting = t.id;
@@ -107,9 +109,12 @@ pub fn register_game_post(tourney_id: i32, conn: crate::TournamentDbConn) -> Res
             };
         }
     }
-    if (needExtraAdd){
+    if needExtraAdd {
         println!("{:?}", game);
         game_vec.push(game);
+    }
+    if game_vec.len() == 1 {
+        game_vec[0].game_level = Final;
     }
     context.insert("games",serde_json::json!(game_vec));
     if diesel::insert_into(games).values(&game_vec).execute(&conn.0).is_ok() {//success
@@ -117,5 +122,75 @@ pub fn register_game_post(tourney_id: i32, conn: crate::TournamentDbConn) -> Res
     } else {
         Err(Template::render("makeBracketFailure", &game_vec))
     }    
-    
+}
+
+#[post("/gameFinsihed?<game_id>&<tourney_id>")]
+pub fn game_finished(game_id: i32, tourney_id: i32, conn: crate::TournamentDbConn) -> Result<String, String> {
+    let tourney_game = games.filter(games::dsl::game_level.eq(Final)).first::<Game>(&conn.0);
+    if tourney_game.is_err() {
+        make_final(game_id,tourney_id,conn)
+    }else{
+        add_to_final(game_id,tourney_id,conn)
+    }
+}
+
+
+
+fn make_final(game_id: i32, tourney_id: i32, conn: crate::TournamentDbConn) -> Result<String, String> {
+    let tourney_game = games.filter(games::dsl::id.eq(game_id)).first::<Game>(&conn.0).unwrap();
+    let win_1_id;
+    let scores: Vec<&str> = tourney_game.score.split("-").collect();
+    if scores[0] > scores[1] {
+        win_1_id = tourney_game.team_1_id;
+    }else{
+        win_1_id = tourney_game.team_2_id;
+    }
+    let new_game = InsertableGame{
+        game_level: Final,
+        tournament_id: tourney_id,
+        team_1_id: win_1_id,
+        team_2_id: 0,
+        team_batting: 0,
+        team_1_batter: 0,
+        team_2_batter: 0,
+        inning: 1,
+        score: "0-0".to_string(),
+        batter: "".to_string(),
+        strikes: 0,
+        balls: 0,
+        outs: 0
+    };
+    if diesel::insert_into(games).values(&new_game).execute(&conn.0).is_ok() {//success
+        Ok(serde_json::json!({"success": true,
+                              "msg": format!("Game {} finished. Made Final", game_id),
+                            }).to_string())
+    } else {
+        Err(serde_json::json!({ "success": true,
+                                "msg": format!("Game {} finished. Failed to Make Final", game_id),
+                            }).to_string())
+    }    
+}
+
+fn add_to_final(game_id: i32, tourney_id: i32, conn: crate::TournamentDbConn) -> Result<String, String> {
+    let tourney_game = games.filter(games::dsl::id.eq(game_id)).first::<Game>(&conn.0).unwrap();
+    let win_2_id;
+    let scores: Vec<&str> = tourney_game.score.split("-").collect();
+    if scores[0] > scores[1] {
+        win_2_id = tourney_game.team_1_id;
+    }else{
+        win_2_id = tourney_game.team_2_id;
+    }
+    let updated_row = diesel::update(games.filter(games::dsl::game_level.eq(Final)))
+            .set(team_2_id.eq(win_2_id))
+            .execute(&conn.0).is_ok();
+    if updated_row {//success
+        Ok(serde_json::json!({"success": true,
+                                "msg": format!("Game {} finished. Added to Final", game_id),
+                            }).to_string())
+    } else {
+        Err(serde_json::json!({ "success": true,
+                                "msg": format!("Game {} finished. Failed to Add to Final", game_id),
+                            }).to_string())
+    }    
+          
 }
