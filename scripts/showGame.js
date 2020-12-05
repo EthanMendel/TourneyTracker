@@ -222,6 +222,7 @@ function initItems(){
             $('#inning').html(name2 + ' wins after ' + inning + ' innings');
 
         }
+        $('#controls, #reset-counts, #edit-score').hide();
     }
     const strikes = parseInt($('#strikes').attr('data-count'));
     switch(strikes){
@@ -252,6 +253,7 @@ function initItems(){
     }
 }
 function finishGame(){
+    $('#controls, #reset-counts, #edit-score').hide();
     sendPost('team_batting', -1);
     const level = $('#game-level').html();
     if(level!='Final'){
