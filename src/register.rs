@@ -51,9 +51,9 @@ pub fn register_team_post(data: Form<InsertableTeam>, tourney_id: i32, conn: cra
         ..data.0
     };
     if diesel::insert_into(teams).values(&team).execute(&conn.0).is_ok() {//success
-        Ok(Template::render("RegisterTeamSuccess", &team))
+        Ok(Template::render("registerTeamSuccess", &team))
     } else {
-        Err(Template::render("RegisterTeamFailure", &team))
+        Err(Template::render("registerTeamFailure", &team))
     }
 }
 
@@ -111,6 +111,25 @@ pub fn register_game_post(tourney_id: i32, conn: crate::TournamentDbConn) -> Res
     }
     if needExtraAdd {
         println!("{:?}", game);
+        game.score = "1-0".to_string();
+        game.team_batting = -1;
+        let hold_id = game.team_1_id;
+        game_vec.push(game);
+        game = InsertableGame{
+            game_level: Final,
+            tournament_id: tourney_id,
+            team_1_id: hold_id,
+            team_2_id: 0,
+            team_batting: 0,
+            team_1_batter: 0,
+            team_2_batter: 0,
+            inning: 1,
+            score: "0-0".to_string(),
+            batter: "".to_string(),
+            strikes: 0,
+            balls: 0,
+            outs: 0
+        };
         game_vec.push(game);
     }
     if game_vec.len() == 1 {
