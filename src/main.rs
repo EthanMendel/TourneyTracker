@@ -4,7 +4,6 @@ mod register;
 mod show;
 mod schema;
 mod db;
-mod tournaments;
 mod error;
 mod update;
 
