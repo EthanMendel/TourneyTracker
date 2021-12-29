@@ -103,7 +103,7 @@ body{
 }
 #controls{
   width: fit-content;
-  top: 700px;
+  top: 650px;
   left: 530px;
   position: relative;
 }
@@ -114,7 +114,7 @@ body{
   text-align: center;
 }
 #counts{
-  top: 675px;
+  top: 625px;
   left: 595px;
   position: relative;
 }

@@ -3,5 +3,3 @@ CREATE TABLE tournaments (
     `name` VARCHAR(250) NOT NULL,
     PRIMARY KEY (id)
 );
-
-INSERT INTO tournaments (`name`) VALUES ('World Series');
